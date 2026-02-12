@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Absensi OSIS Digital</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --primary:#2563eb;
+    --dark:#0f172a;
+    --light:#f8fafc;
+    --card:#ffffff;
+    --shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--light);
+}
+
+/* ================= CLEAN PREMIUM LOGIN ================= */
+
+.login-page{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#ffffff;
+    position:relative;
+    overflow:hidden;
+}
+
+/* Cahaya mengikuti mouse (soft navy glow) */
+.login-page::before{
+    content:"";
+    position:absolute;
+    width:500px;
+    height:500px;
+    background:radial-gradient(circle, rgba(0,31,63,0.15) 0%, transparent 70%);
+    border-radius:50%;
+    pointer-events:none;
+    transform:translate(-50%, -50%);
+    left:var(--x, 50%);
+    top:var(--y, 50%);
+    transition:0.08s;
+}
+
+/* LOGIN BOX */
+.login-box{
+    background:#ffffff;
+    padding:45px;
+    border-radius:25px;
+    width:360px;
+    text-align:center;
+    border:1px solid #e5e7eb;
+    box-shadow:0 25px 60px rgba(0,31,63,0.15);
+    transition:0.3s ease;
+}
+
+.login-box:hover{
+    transform:translateY(-6px);
+    box-shadow:0 35px 80px rgba(0,31,63,0.25);
+}
+
+.login-box h2{
+    margin-bottom:25px;
+    color:#001f3f;
+    font-weight:600;
+}
+
+/* INPUT */
+.login-box input{
+    width:100%;
+    padding:14px;
+    margin:12px 0;
+    border-radius:12px;
+    border:1px solid #d1d5db;
+    outline:none;
+    font-size:14px;
+    transition:0.3s;
+}
+
+.login-box input:focus{
+    border-color:#001f3f;
+    box-shadow:0 0 15px rgba(0,31,63,0.25);
+}
+
+/* BUTTON */
+.login-box button{
+    width:100%;
+    padding:14px;
+    margin-top:15px;
+    border:none;
+    border-radius:12px;
+    background:#001f3f;
+    color:white;
+    font-weight:500;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.login-box button:hover{
+    background:#003366;
+    box-shadow:0 0 20px rgba(0,31,63,0.4);
+    transform:scale(1.03);
+}
+
+.error{
+    color:#dc2626;
+    font-size:13px;
+    margin-top:10px;
+}
+.logout-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:#ffffff;
+    color:#001f3f;
+    border:none;
+    padding:8px 14px;
+    border-radius:10px;
+    font-weight:500;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.logout-btn:hover{
+    background:#ff4d4d;
+    color:white;
+    box-shadow:0 0 15px rgba(255,77,77,0.6);
+    transform:translateY(-2px);
+}
+.input-group{
+    position:relative;
+    display:flex;
+    align-items:center;
+    margin:14px 0;
+}
+
+.input-group input{
+    width:100%;
+    padding:14px 45px;
+    border-radius:12px;
+    border:1px solid #d1d5db;
+    outline:none;
+    font-size:14px;
+    transition:0.3s;
+}
+
+.input-group input:focus{
+    border-color:#001f3f;
+    box-shadow:0 0 12px rgba(0,31,63,0.25);
+}
+
+/* ICON KIRI */
+.input-icon{
+    position:absolute;
+    left:14px;
+    color:#001f3f;
+    display:flex;
+    align-items:center;
+}
+
+/* TOGGLE PASSWORD */
+.toggle-password{
+    position:absolute;
+    right:14px;
+    cursor:pointer;
+    color:#001f3f;
+    display:flex;
+    align-items:center;
+    transition:0.3s;
+}
+
+.toggle-password:hover{
+    transform:scale(1.1);
+    color:#003366;
+}
+
+/* Smooth fade animation */
+.fade-anim{
+    animation:fadeSmooth 0.25s ease;
+}
+
+@keyframes fadeSmooth{
+    from{opacity:0; transform:scale(0.9);}
+    to{opacity:1; transform:scale(1);}
+}
+
+
+
+/* ================= DASHBOARD ================= */
+.dashboard{
+    display:none;
+}
+
+/* HEADER */
+header{
+background-color: #001f3f;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 40px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+}
+
+.header-left img{
+    width:45px;
+    margin-right:10px;
+}
+
+.header-left h1{
+    font-size:15px;
+    font-weight:600;
+}
+
+/* NAV */
+nav{
+    display:flex;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:25px;
+    font-weight:500;
+}
+
+nav a:hover{
+    color:#93c5fd;
+}
+
+/* HAMBURGER */
+.menu-toggle{
+    display:none;
+    flex-direction:column;
+    cursor:pointer;
+}
+
+.menu-toggle span{
+    height:3px;
+    width:25px;
+    background:white;
+    margin:4px 0;
+}
+
+/* HERO */
+.hero{
+    position:relative;
+    height:340px;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.hero img{
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    top:0;
+    left:0;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:160px;
+    background:linear-gradient(to bottom,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.7) 60%,
+        rgba(255,255,255,1) 100%);
+}
+
+.hero-text{
+    position:relative;
+    color:white;
+   
+   
+    z-index:2;
+    max-width:700px;
+}
+
+.hero-text h2{
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+.hero-text p{
+    font-size:15px;
+    opacity:0.9;
+}
+
+/* SECTION */
+.section{
+    padding:60px 8%;
+}
+
+/* CARD */
+.card{
+    background:var(--card);
+    padding:30px;
+    border-radius:20px;
+    box-shadow:var(--shadow);
+    margin-bottom:40px;
+}
+
+/* FORM */
+select,button{
+    padding:10px 15px;
+    border-radius:10px;
+    border:1px solid #ddd;
+    margin:5px;
+    font-size:14px;
+}
+
+button{
+   background-color: #001f3f;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+/* TABLE */
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    box-shadow:var(--shadow);
+    border-radius:16px;
+    overflow:hidden;
+    margin-bottom:40px;
+}
+
+th{
+   background-color: #001f3f;
+
+    color:white;
+    padding:14px;
+}
+
+td{
+    padding:12px;
+    text-align:center;
+}
+
+tr:nth-child(even){
+    background:#f1f5f9;
+}
+
+tr:hover{
+    background:#e0e7ff;
+}
+
+.delete-btn{
+    background:#dc2626;
+    padding:6px 10px;
+    border-radius:6px;
+    font-size:12px;
+}
+
+.delete-btn:hover{
+    background:#b91c1c;
+}
+
+/* FOOTER */
+footer{
+  background-color: #001f3f;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:150px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+    nav{
+        position:absolute;
+        top:70px;
+        right:0;
+        background:var(--dark);
+        flex-direction:column;
+        width:200px;
+        display:none;
+        padding:20px;
+    }
+    nav a{
+        margin:10px 0;
+    }
+    nav.active{
+        display:flex;
+    }
+    .menu-toggle{
+        display:flex;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN PAGE -->
+<div class="login-page" id="loginPage">
+<div class="login-box">
+<h2>Login Admin Sekretaris</h2>
+<div class="input-group">
+    <span class="input-icon">
+        <!-- User Icon SVG -->
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z"/>
+        </svg>
+    </span>
+    <input type="text" id="username" placeholder="Username">
+</div>
+
+<div class="input-group password-group">
+    <span class="input-icon">
+        <!-- Lock Icon SVG -->
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M12 17a2 2 0 0 0 2-2c0-.7-.3-1.3-.8-1.7V11a1.2 1.2 0 0 0-2.4 0v2.3c-.5.4-.8 1-.8 1.7a2 2 0 0 0 2 2zm6-6h-1V8a5 5 0 0 0-10 0v3H6a2 2 0 0 0-2 2v7h16v-7a2 2 0 0 0-2-2zM9 8a3 3 0 0 1 6 0v3H9V8z"/>
+        </svg>
+    </span>
+
+    <input type="password" id="password" placeholder="Password">
+
+    <span class="toggle-password" onclick="togglePassword()">
+        <!-- Eye Icon SVG -->
+        <svg id="eyeIcon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+        </svg>
+    </span>
+</div>
+
+<button onclick="login()">Masuk</button>
+<div class="error" id="errorMsg"></div>
+</div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+
+<header>
+<div class="header-left">
+<img src="logo.png">
+<h1>OsskawanSEN</h1>
+</div>
+
+<div class="menu-toggle" onclick="toggleMenu()">
+<span></span>
+<span></span>
+<span></span>
+</div>
+
+<nav id="navMenu">
+<a href="#kehadiran">Kehadiran</a>
+<a href="#rekap">Rekap</a>
+<button class="logout-btn" onclick="logout()">
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+  <path d="M6 2a1 1 0 0 0-1 1v2h1V3h4v10H6v-2H5v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H6z"/>
+  <path d="M.146 8.354a.5.5 0 0 1 0-.708L2.793 5H9.5a.5.5 0 0 1 0 1H2.793l-2.647 2.646a.5.5 0 0 1-.707 0z"/>
+</svg>
+&nbsp; Logout
+</button>
+
+</nav>
+</header>
+
+<div class="hero">
+<img src="foto10.jpeg">
+<div class="hero-text">
+<h2>- Sistem Absensi Digital OSIS -</h2>
+<p>Mewujudkan kedisiplinan, tanggung jawab, dan profesionalisme dalam setiap kegiatan organisasi..</p>
+</div>
+</div>
+
+<div class="section">
+
+<div class="card">
+<h2>Input Absensi</h2>
+
+<select id="anggotaSelect"></select>
+
+<select id="keterangan">
+<option value="Hadir">Hadir</option>
+<option value="Izin">Izin</option>
+<option value="Alpa">Alpa</option>
+</select>
+
+<button onclick="tambahAbsensi()">Absen</button>
+</div>
+
+<h2 id="kehadiran">Data Kehadiran</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Nama</th>
+<th>Tanggal</th>
+<th>Keterangan</th>
+<th>Aksi</th>
+</tr>
+</thead>
+<tbody id="tabelAbsensi"></tbody>
+</table>
+
+<h2 id="rekap">Rekap Bulanan</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Nama</th>
+<th>Hadir</th>
+<th>Izin</th>
+<th>Alpa</th>
+</tr>
+</thead>
+<tbody id="tabelRekap"></tbody>
+</table>
+
+</div>
+
+<footer>
+© 2026 Sekbid 8 - Sistem Absensi Digital
+</footer>
+
+<script>
+    /* LOGIN SYSTEM */
+const ADMIN_USER="admin";
+const ADMIN_PASS="123";
+
+function login(){
+let user=document.getElementById("username").value;
+let pass=document.getElementById("password").value;
+
+if(user===ADMIN_USER && pass===ADMIN_PASS){
+sessionStorage.setItem("login","true");
+showDashboard();
+}else{
+document.getElementById("errorMsg").innerText="Username atau Password salah!";
+}
+}
+
+function logout(){
+sessionStorage.removeItem("login");
+location.reload();
+}
+function showDashboard(){
+document.getElementById("loginPage").style.display="none";
+document.getElementById("dashboard").style.display="block";
+}
+
+if(sessionStorage.getItem("login")==="true"){
+showDashboard();
+}
+
+function toggleMenu(){
+    document.getElementById("navMenu").classList.toggle("active");
+}
+
+let namaList=["ABDUL GHOFUR","AKHMAD NUR FAIZI","ALIFAH ISNA NUR .A","ANDAN BUDI ELHA","DENITA AOLIA","DWI AGUSTINA","FELIX FAHRI ARVABILLIE SYAHREZA","HAIDAR AMIR .M","HAZEL RILO MAULA","HILDAN NUR JOHANTO","JUAN DWI SATRIO","KHOLIVIA NURHANAN","MUHAMMAD TAMAAM ZAYYAN","MUSTIKA SEKAR PAMBAYUN","NAZIH AFDAN NAUFAL","PANCA MAULANA","RIFKY ADI NUGROHO","TARA JULIANI","VICKI ILHAM RAMADHAN","WISNU KURNIAWAN","YOGA SETIA ROMADHON","ZAHRA AGUSTIN","ZAHRA ANTIKA","ZOYA ATHA AKBARI","ANDINI SILFIANI","ALIYAH HIKMATUL GINA","ALINDA PUSPITA SARI","ARUM SULIS SETIYAWATI","BILLY GO PUTRA","CHUSNULLYA DWI ANGGITA","ETIKA","DEANDRA SEPTRIYASA","DUWI FIRDA TASYA AULIA PUTRI","DWI AZZAHRA QOTRUNNASYIFA","EVA ISMAFUL HAWA","EVI NURAENI","GITA AYU LESTARI","HEFI ANANDA","IBNU HUDA ALFANSY","INAYA WIGATI LULU HANA","JEANA AMANDA RIZKY","MUTMAINAH","NABILA DWI NUR AINI","NAZRIL AFDAN HAMID","RANEVA APRILIA .S","RATIH KURNIASIH","SUCI DWI RAMADANI","SYAE LUHUR PAKARTI","TRI ERMAWATI","VILA FANDIRA MAHESWARI"];
+
+let anggotaOSIS=namaList.map((n,i)=>({id:i+1,nama:n}));
+let dataAbsensi=JSON.parse(localStorage.getItem("dataAbsensi"))||[];
+
+let select=document.getElementById("anggotaSelect");
+anggotaOSIS.forEach(a=>{
+let o=document.createElement("option");
+o.value=a.id;
+o.textContent=a.id+" - "+a.nama;
+select.appendChild(o);
+});
+
+function tambahAbsensi(){
+let id=parseInt(select.value);
+let ket=document.getElementById("keterangan").value;
+let today=new Date();
+let tanggal=today.toISOString().split("T")[0];
+
+if(dataAbsensi.find(d=>d.id===id && d.tanggal===tanggal)){
+alert("Tidak bisa absen 2x dalam 1 hari!");
+return;
+}
+
+let anggota=anggotaOSIS.find(a=>a.id===id);
+
+dataAbsensi.push({
+id:id,
+nama:anggota.nama,
+tanggal:tanggal,
+keterangan:ket,
+bulan:today.getMonth(),
+tahun:today.getFullYear()
+});
+
+localStorage.setItem("dataAbsensi",JSON.stringify(dataAbsensi));
+tampilkanAbsensi();
+tampilkanRekap();
+
+if(select.selectedIndex<select.options.length-1){
+select.selectedIndex++;
+}
+}
+
+function tampilkanAbsensi(){
+let tbody=document.getElementById("tabelAbsensi");
+tbody.innerHTML="";
+dataAbsensi.forEach((d,i)=>{
+let r=tbody.insertRow();
+r.insertCell(0).innerHTML=d.id;
+r.insertCell(1).innerHTML=d.nama;
+r.insertCell(2).innerHTML=d.tanggal;
+r.insertCell(3).innerHTML=d.keterangan;
+r.insertCell(4).innerHTML=`<button class="delete-btn" onclick="hapus(${i})">Hapus</button>`;
+});
+}
+
+function hapus(i){
+if(confirm("Apakah kamu yakin akan menghapus data ini?")){
+dataAbsensi.splice(i,1);
+localStorage.setItem("dataAbsensi",JSON.stringify(dataAbsensi));
+tampilkanAbsensi();
+tampilkanRekap();
+}
+}
+
+function tampilkanRekap(){
+let now=new Date();
+let bulan=now.getMonth();
+let tahun=now.getFullYear();
+let tbody=document.getElementById("tabelRekap");
+tbody.innerHTML="";
+
+anggotaOSIS.forEach(a=>{
+let hadir=0,izin=0,alpa=0;
+dataAbsensi.forEach(d=>{
+if(d.id===a.id && d.bulan===bulan && d.tahun===tahun){
+if(d.keterangan==="Hadir") hadir++;
+if(d.keterangan==="Izin") izin++;
+if(d.keterangan==="Alpa") alpa++;
+}
+});
+let r=tbody.insertRow();
+r.insertCell(0).innerHTML=a.id;
+r.insertCell(1).innerHTML=a.nama;
+r.insertCell(2).innerHTML=hadir;
+r.insertCell(3).innerHTML=izin;
+r.insertCell(4).innerHTML=alpa;
+});
+}
+
+tampilkanAbsensi();
+tampilkanRekap();
+
+/* Efek cahaya mengikuti mouse */
+const loginArea = document.querySelector(".login-page");
+
+loginArea.addEventListener("mousemove", (e) => {
+    loginArea.style.setProperty('--x', e.clientX + 'px');
+    loginArea.style.setProperty('--y', e.clientY + 'px');
+});
+
+loginPage.addEventListener("mousemove", function(e){
+    const x = e.clientX;
+    const y = e.clientY;
+    loginPage.style.setProperty('--x', x + 'px');
+    loginPage.style.setProperty('--y', y + 'px');
+});
+
+document.addEventListener("mousemove", function(e){
+    const before = document.querySelector(".login-page::before");
+});
+
+function togglePassword(){
+    const passInput = document.getElementById("password");
+    const eyeIcon = document.getElementById("eyeIcon");
+
+    if(passInput.type === "password"){
+        passInput.type = "text";
+        eyeIcon.innerHTML = `
+            <path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+            <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2"/>
+        `;
+    } else {
+        passInput.type = "password";
+        eyeIcon.innerHTML = `
+            <path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+        `;
+    }
+
+    eyeIcon.classList.add("fade-anim");
+    setTimeout(() => {
+        eyeIcon.classList.remove("fade-anim");
+    }, 250);
+}
+
+
+</script>
+
+</body>
+</html>
