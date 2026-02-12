@@ -126,13 +126,13 @@ body{
 .logout-btn{
     display:flex;
     align-items:center;
-    gap:8px;
-    background:#ffffff;
+    gap:6px;
+    background:white;
     color:#001f3f;
     border:none;
-    padding:8px 14px;
-    border-radius:10px;
-    font-weight:500;
+    padding:6px 12px;
+    border-radius:8px;
+    font-size:13px;
     cursor:pointer;
     transition:0.3s;
 }
@@ -140,9 +140,8 @@ body{
 .logout-btn:hover{
     background:#ff4d4d;
     color:white;
-    box-shadow:0 0 15px rgba(255,77,77,0.6);
-    transform:translateY(-2px);
 }
+
 .input-group{
     position:relative;
     display:flex;
@@ -316,6 +315,21 @@ nav a:hover{
     font-size:15px;
     opacity:0.9;
 }
+@media(max-width:768px){
+    .hero{
+        height:260px;
+        padding:0 20px;
+    }
+
+    .hero-text h2{
+        font-size:20px;
+    }
+
+    .hero-text p{
+        font-size:13px;
+    }
+}
+
 
 /* SECTION */
 .section{
@@ -424,6 +438,160 @@ footer{
         display:flex;
     }
 }
+/* ================= RESPONSIVE GLOBAL ================= */
+
+body{
+    overflow-x:hidden;
+}
+
+/* LOGIN RESPONSIVE */
+@media(max-width:480px){
+    .login-box{
+        width:90%;
+        padding:30px 20px;
+        border-radius:18px;
+    }
+
+    .login-box h2{
+        font-size:18px;
+    }
+
+    .input-group input{
+        padding:12px 40px;
+        font-size:13px;
+    }
+
+    .login-box button{
+        padding:12px;
+        font-size:14px;
+    }
+}
+
+/* HEADER RESPONSIVE */
+@media(max-width:768px){
+    header{
+        padding:12px 20px;
+    }
+
+    .header-left h1{
+        font-size:14px;
+    }
+
+    nav{
+        position:absolute;
+        top:65px;
+        right:0;
+        background:#001f3f;
+        flex-direction:column;
+        width:200px;
+        display:none;
+        padding:20px;
+        border-radius:0 0 0 15px;
+    }
+
+    nav a{
+        margin:10px 0;
+    }
+
+    nav.active{
+        display:flex;
+    }
+
+    .menu-toggle{
+        display:flex;
+    }
+}
+
+/* SECTION RESPONSIVE */
+@media(max-width:768px){
+    .section{
+        padding:40px 20px;
+    }
+
+    .card{
+        padding:20px;
+    }
+}
+
+/* TABLE RESPONSIVE */
+.table-container{
+    width:100%;
+    overflow-x:auto;
+}
+
+/* ================= TABLE GLOBAL ================= */
+
+.table-container{
+    width:100%;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    box-shadow:0 10px 30px rgba(0,31,63,0.08);
+    border-radius:16px;
+    overflow:hidden;
+    margin-bottom:40px;
+    font-size:14px;
+}
+
+th{
+    background:#001f3f;
+    color:white;
+    padding:14px 10px;
+    text-align:center;
+}
+
+td{
+    padding:12px 8px;
+    text-align:center;
+}
+
+tr:nth-child(even){
+    background:#f8fafc;
+}
+
+tr:hover{
+    background:#e6f0ff;
+    transition:0.2s;
+}
+
+/* ================= RESPONSIVE TABLE ================= */
+
+@media(max-width:768px){
+
+    table{
+        font-size:12px;
+    }
+
+    th{
+        padding:10px 6px;
+    }
+
+    td{
+        padding:8px 6px;
+    }
+
+    .delete-btn{
+        padding:4px 6px;
+        font-size:11px;
+    }
+}
+
+@media(max-width:480px){
+
+    table{
+        font-size:11px;
+    }
+
+    th, td{
+        padding:6px 4px;
+    }
+}
+
+
 </style>
 </head>
 <body>
@@ -518,6 +686,8 @@ footer{
 <button onclick="tambahAbsensi()">Absen</button>
 </div>
 
+<div class="table-container">
+<table>
 <h2 id="kehadiran">Data Kehadiran</h2>
 <table>
 <thead>
@@ -531,7 +701,11 @@ footer{
 </thead>
 <tbody id="tabelAbsensi"></tbody>
 </table>
+</table>
+</div>
 
+<div class="table-container">
+<table>
 <h2 id="rekap">Rekap Bulanan</h2>
 <table>
 <thead>
@@ -545,6 +719,8 @@ footer{
 </thead>
 <tbody id="tabelRekap"></tbody>
 </table>
+</table>
+</div>
 
 </div>
 
