@@ -208,7 +208,7 @@ body{
 
 /* HEADER */
 header{
-background-color: #001f3f;
+background-color: #1c2126ff;
     color:white;
     display:flex;
     justify-content:space-between;
@@ -225,8 +225,8 @@ background-color: #001f3f;
 }
 
 .header-left img{
-    width:45px;
-    margin-right:10px;
+    width:95px;
+    margin-right:1px;
 }
 
 .header-left h1{
@@ -355,7 +355,7 @@ select,button{
 }
 
 button{
-   background-color: #001f3f;
+   background-color: #1c2126ff;
     color:white;
     border:none;
     cursor:pointer;
@@ -377,7 +377,7 @@ table{
 }
 
 th{
-   background-color: #001f3f;
+   background-color: #1c2126ff;
 
     color:white;
     padding:14px;
@@ -409,7 +409,7 @@ tr:hover{
 
 /* FOOTER */
 footer{
-  background-color: #001f3f;
+  background-color: #1c2126ff;
     color:white;
     text-align:center;
     padding:20px;
@@ -590,6 +590,194 @@ tr:hover{
         padding:6px 4px;
     }
 }
+/* ================= LOADING OVERLAY ================= */
+
+#loadingOverlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(255,255,255,0.6);
+    backdrop-filter:blur(6px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    opacity:0;
+    visibility:hidden;
+    transition:0.3s ease;
+}
+
+#loadingOverlay.active{
+    opacity:1;
+    visibility:visible;
+}
+
+/* Box */
+.loader-box{
+    background:white;
+    padding:30px 40px;
+    border-radius:20px;
+    box-shadow:0 20px 50px rgba(0,31,63,0.2);
+    text-align:center;
+    animation:fadeUp 0.4s ease;
+}
+
+.loader-box p{
+    margin-top:15px;
+    color:#001f3f;
+    font-weight:500;
+}
+
+/* Spinner */
+.spinner{
+    width:45px;
+    height:45px;
+    border:5px solid #e5e7eb;
+    border-top:5px solid #001f3f;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    to{ transform:rotate(360deg); }
+}
+
+.section{
+    padding:60px 8%;
+    animation:fadePage 0.4s ease;
+}
+
+@keyframes fadePage{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+/* ===== DASHBOARD STAT CARD ===== */
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+    margin-bottom:40px;
+}
+
+.stat-card{
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 15px 40px rgba(0,31,63,0.1);
+    text-align:center;
+    transition:0.3s;
+}
+
+.stat-card:hover{
+    transform:translateY(-5px);
+}
+
+.stat-card h3{
+    font-size:28px;
+    margin-bottom:5px;
+    color:#001f3f;
+}
+
+.stat-card p{
+    font-size:13px;
+    color:#64748b;
+}
+
+/* ===== BADGE ===== */
+.badge{
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:500;
+    color:white;
+}
+
+.badge-aktif{ background:#16a34a; }
+.badge-cukup{ background:#f59e0b; }
+.badge-kurang{ background:#dc2626; }
+
+/* ===== TOAST ===== */
+.toast{
+    position:fixed;
+    top:30px;
+    right:30px;
+    background:#16a34a;
+    color:white;
+    padding:15px 25px;
+    border-radius:12px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+    transform:translateX(150%);
+    transition:0.4s;
+    z-index:9999;
+}
+
+.toast.show{
+    transform:translateX(0);
+}
+
+/* ============================= */
+/* PERAPIAN NAVBAR KHUSUS LAPTOP */
+/* ============================= */
+@media (min-width: 992px){
+
+    #navMenu{
+        display:flex;
+        align-items:center;
+        justify-content:flex-end;
+        gap:26px;
+    }
+
+    #navMenu a{
+        font-size:14px;
+        padding:8px 14px;
+        border-radius:8px;
+        transition:0.3s;
+    }
+
+    #navMenu a:hover{
+        background:rgba(255,255,255,0.15);
+    }
+
+    .logout-btn{
+        padding:8px 16px;
+        border-radius:8px;
+    }
+
+}
+
+/* ============================= */
+/* WARNA NAVBAR KHUSUS HP */
+/* ============================= */
+@media (max-width: 991px){
+
+    #navMenu{
+        background: #1c2126ff;
+    }
+
+    #navMenu a{
+        color: white;
+    }
+
+    .logout-btn{
+        background: #dc2626; /* tetap merah logout */
+        color: white;
+    }
+
+}
+/* ============================= */
+/* LOGOUT PUTIH KHUSUS MODE HP */
+/* ============================= */
+@media (max-width: 991px){
+
+    .logout-btn{
+        background: white;
+        color: #1c2126ff; /* teks gelap supaya terlihat */
+        border: none;
+    }
+
+}
 
 
 </style>
@@ -638,8 +826,7 @@ tr:hover{
 
 <header>
 <div class="header-left">
-<img src="logo.png">
-<h1>OsskawanSEN</h1>
+<img src="logo1.png">
 </div>
 
 <div class="menu-toggle" onclick="toggleMenu()">
@@ -649,87 +836,157 @@ tr:hover{
 </div>
 
 <nav id="navMenu">
-<a href="#kehadiran">Kehadiran</a>
-<a href="#rekap">Rekap</a>
-<button class="logout-btn" onclick="logout()">
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-  <path d="M6 2a1 1 0 0 0-1 1v2h1V3h4v10H6v-2H5v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H6z"/>
-  <path d="M.146 8.354a.5.5 0 0 1 0-.708L2.793 5H9.5a.5.5 0 0 1 0 1H2.793l-2.647 2.646a.5.5 0 0 1-.707 0z"/>
-</svg>
-&nbsp; Logout
-</button>
+    <a href="#" onclick="showPage('kehadiran')">Kehadiran</a>
+    <a href="#" onclick="showPage('rekapPage')">Rekap</a>
+    <a href="#" onclick="showPage('kegiatanFullPage')">Absensi Kegiatan</a>
 
+    <button class="logout-btn" onclick="logout()">
+        Logout
+    </button>
 </nav>
+
 </header>
 
 <div class="hero">
-<img src="foto10.jpeg">
-<div class="hero-text">
-<h2>- Sistem Absensi Digital OSIS -</h2>
-<p>Mewujudkan kedisiplinan, tanggung jawab, dan profesionalisme dalam setiap kegiatan organisasi..</p>
-</div>
+<img src="foto2.png">
 </div>
 
-<div class="section">
+<!-- ================= HALAMAN ABSENSI ================= -->
+<div class="section" id="kehadiran">
 
-<div class="card">
-<h2>Input Absensi</h2>
+    <div class="card">
+        <h2>Input Absensi</h2>
 
-<select id="anggotaSelect"></select>
+        <select id="anggotaSelect"></select>
 
-<select id="keterangan">
-<option value="Hadir">Hadir</option>
-<option value="Izin">Izin</option>
-<option value="Alpa">Alpa</option>
-</select>
+        <select id="keterangan">
+            <option value="Hadir">Hadir</option>
+            <option value="Izin">Izin</option>
+            <option value="Alpa">Alpa</option>
+        </select>
 
-<button onclick="tambahAbsensi()">Absen</button>
-</div>
+        <button onclick="tambahAbsensi()">Absen</button>
+    </div>
 
-<div class="table-container">
-<table>
-<h2 id="kehadiran">Data Kehadiran</h2>
-<table>
-<thead>
-<tr>
-<th>ID</th>
-<th>Nama</th>
-<th>Tanggal</th>
-<th>Keterangan</th>
-<th>Aksi</th>
-</tr>
-</thead>
-<tbody id="tabelAbsensi"></tbody>
-</table>
-</table>
-</div>
-
-<div class="table-container">
-<table>
-<h2 id="rekap">Rekap Bulanan</h2>
-<table>
-<thead>
-<tr>
-<th>ID</th>
-<th>Nama</th>
-<th>Hadir</th>
-<th>Izin</th>
-<th>Alpa</th>
-</tr>
-</thead>
-<tbody id="tabelRekap"></tbody>
-</table>
-</table>
-</div>
+    <div class="table-container">
+        <h2>Data Kehadiran</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Tanggal</th>
+                    <th>Keterangan</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="tabelAbsensi"></tbody>
+        </table>
+    </div>
 
 </div>
+
+
+<!-- Statistik -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <h3 id="totalHadir">0</h3>
+        <p>Total Hadir</p>
+    </div>
+    <div class="stat-card">
+        <h3 id="totalIzin">0</h3>
+        <p>Total Izin</p>
+    </div>
+    <div class="stat-card">
+        <h3 id="totalAlpa">0</h3>
+        <p>Total Alpa</p>
+    </div>
+    <div class="stat-card">
+        <h3 id="persenHadir">0%</h3>
+        <p>Persentase Kehadiran</p>
+    </div>
+</div>
+
+<!-- ================= HALAMAN REKAP ================= -->
+<div class="section" id="rekapPage" style="display:none;">
+
+    <div class="card">
+        <h2>Rekap Bulanan</h2>
+        <p style="margin-bottom:15px; color:#64748b;">
+            Data rekap otomatis berdasarkan bulan berjalan.
+        </p>
+
+        <button onclick="printData()" class="export-btn">
+            Export / Print Data
+        </button>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Hadir</th>
+                    <th>Izin</th>
+                    <th>Alpa</th>
+                </tr>
+            </thead>
+            <tbody id="tabelRekap"></tbody>
+            <div class="toast" id="toastNotif">
+    Absensi Berhasil ✅
+</div>
+
+        </table>
+    </div>
+
+</div>
+
+<!-- ================= HALAMAN FULL ABSENSI KEGIATAN ================= -->
+<div class="section" id="kegiatanFullPage" style="display:none;">
+
+    <div class="card">
+        <h2>Absensi Kegiatan OSIS</h2>
+
+        <input type="text" id="namaKegiatan"
+        placeholder="Nama Kegiatan"
+        style="padding:10px;border-radius:10px;border:1px solid #ddd;margin:5px;width:250px;">
+
+        <select id="anggotaSelectKegiatan"></select>
+
+        <button onclick="simpanAbsensiKegiatan()">Simpan</button>
+<button onclick="printKegiatan()">Print Data</button>
+<button onclick="hapusSemuaKegiatan()" style="background:#dc2626;">
+    Hapus Semua
+</button>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Kegiatan</th>
+                    <th>Tanggal</th>
+                    <th>TTD</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="tabelKegiatan"></tbody>
+        </table>
+    </div>
+
+</div>
+
+
 
 <footer>
 © 2026 Sekbid 8 - Sistem Absensi Digital
 </footer>
 
 <script>
-    /* LOGIN SYSTEM */
+/* LOGIN SYSTEM */
 const ADMIN_USER="admin";
 const ADMIN_PASS="123";
 
@@ -749,6 +1006,7 @@ function logout(){
 sessionStorage.removeItem("login");
 location.reload();
 }
+
 function showDashboard(){
 document.getElementById("loginPage").style.display="none";
 document.getElementById("dashboard").style.display="block";
@@ -759,15 +1017,68 @@ showDashboard();
 }
 
 function toggleMenu(){
-    document.getElementById("navMenu").classList.toggle("active");
+document.getElementById("navMenu").classList.toggle("active");
 }
 
-let namaList=["ABDUL GHOFUR","AKHMAD NUR FAIZI","ALIFAH ISNA NUR .A","ANDAN BUDI ELHA","DENITA AOLIA","DWI AGUSTINA","FELIX FAHRI ARVABILLIE SYAHREZA","HAIDAR AMIR .M","HAZEL RILO MAULA","HILDAN NUR JOHANTO","JUAN DWI SATRIO","KHOLIVIA NURHANAN","MUHAMMAD TAMAAM ZAYYAN","MUSTIKA SEKAR PAMBAYUN","NAZIH AFDAN NAUFAL","PANCA MAULANA","RIFKY ADI NUGROHO","TARA JULIANI","VICKI ILHAM RAMADHAN","WISNU KURNIAWAN","YOGA SETIA ROMADHON","ZAHRA AGUSTIN","ZAHRA ANTIKA","ZOYA ATHA AKBARI","ANDINI SILFIANI","ALIYAH HIKMATUL GINA","ALINDA PUSPITA SARI","ARUM SULIS SETIYAWATI","BILLY GO PUTRA","CHUSNULLYA DWI ANGGITA","ETIKA","DEANDRA SEPTRIYASA","DUWI FIRDA TASYA AULIA PUTRI","DWI AZZAHRA QOTRUNNASYIFA","EVA ISMAFUL HAWA","EVI NURAENI","GITA AYU LESTARI","HEFI ANANDA","IBNU HUDA ALFANSY","INAYA WIGATI LULU HANA","JEANA AMANDA RIZKY","MUTMAINAH","NABILA DWI NUR AINI","NAZRIL AFDAN HAMID","RANEVA APRILIA .S","RATIH KURNIASIH","SUCI DWI RAMADANI","SYAE LUHUR PAKARTI","TRI ERMAWATI","VILA FANDIRA MAHESWARI"];
+/* ================= DATA ================= */
+
+let namaList=[
+"ABDUL GHOFUR",
+"AKHMAD NUR FAIZI",
+"ALIFAH ISNA NUR .A",
+"ANDAN BUDI ELHA",
+"DENITA AOLIA",
+"DWI AGUSTINA",
+"FELIX FAHRI ARVABILLIE SYAHREZA",
+"HAIDAR AMIR .M",
+"HAZEL RILO MAULA",
+"HILDAN NUR JOHANTO",
+"JUAN DWI SATRIO",
+"KHOLIVIA NURHANAN",
+"MUHAMMAD TAMAAM ZAYYAN",
+"MUSTIKA SEKAR PAMBAYUN",
+"NAZIH AFDAN NAUFAL",
+"PANCA MAULANA",
+"RIFKY ADI NUGROHO",
+"TARA JULIANI",
+"VICKI ILHAM RAMADHAN",
+"WISNU KURNIAWAN",
+"YOGA SETIA ROMADHON",
+"ZAHRA AGUSTIN",
+"ZAHRA ANTIKA",
+"ZOYA ATHA AKBARI",
+"ANDINI SILFIANI",
+"ALIYAH HIKMATUL GINA",
+"ALINDA PUSPITA SARI",
+"ARUM SULIS SETIYAWATI",
+"BILLY GO PUTRA",
+"CHUSNULLYA DWI ANGGITA",
+"DEANDRA SEPTRIYASA",
+"DUWI FIRDA TASYA AULIA PUTRI",
+"DWI AZZAHRA QOTRUNNASYIFA",
+"EVA ISMAFUL HAWA",
+"EVI NURAENI",
+"GITA AYU LESTARI",
+"HEFI ANANDA",
+"IBNU HUDA ALFANSYI",
+"INAYA WIGATI LULU HANA",
+"JEANA AMANDA RIZKY",
+"MUTMAINAH",
+"NABILA DWI NUR AINI",
+"NAZRIL AFDAN HAMID",
+"RANEVA APRILIA .S",
+"RATIH KURNIASIH",
+"SUCI DWI RAMADANI",
+"SYAE LUHUR PAKARTI",
+"TRI ERMAWATI",
+"VILA FANDIRA MAHESWARI"
+];
 
 let anggotaOSIS=namaList.map((n,i)=>({id:i+1,nama:n}));
 let dataAbsensi=JSON.parse(localStorage.getItem("dataAbsensi"))||[];
 
 let select=document.getElementById("anggotaSelect");
+
 anggotaOSIS.forEach(a=>{
 let o=document.createElement("option");
 o.value=a.id;
@@ -775,11 +1086,15 @@ o.textContent=a.id+" - "+a.nama;
 select.appendChild(o);
 });
 
+/* ================= TAMBAH ABSENSI ================= */
+
 function tambahAbsensi(){
 let id=parseInt(select.value);
 let ket=document.getElementById("keterangan").value;
 let today=new Date();
+
 let tanggal=today.toISOString().split("T")[0];
+let jam=today.toTimeString().split(" ")[0];
 
 if(dataAbsensi.find(d=>d.id===id && d.tanggal===tanggal)){
 alert("Tidak bisa absen 2x dalam 1 hari!");
@@ -792,19 +1107,25 @@ dataAbsensi.push({
 id:id,
 nama:anggota.nama,
 tanggal:tanggal,
+jam:jam,
 keterangan:ket,
 bulan:today.getMonth(),
 tahun:today.getFullYear()
 });
 
 localStorage.setItem("dataAbsensi",JSON.stringify(dataAbsensi));
+
 tampilkanAbsensi();
 tampilkanRekap();
+updateStats();
+showToast();
 
 if(select.selectedIndex<select.options.length-1){
 select.selectedIndex++;
 }
 }
+
+/* ================= TABEL ABSENSI ================= */
 
 function tampilkanAbsensi(){
 let tbody=document.getElementById("tabelAbsensi");
@@ -825,8 +1146,11 @@ dataAbsensi.splice(i,1);
 localStorage.setItem("dataAbsensi",JSON.stringify(dataAbsensi));
 tampilkanAbsensi();
 tampilkanRekap();
+updateStats();
 }
 }
+
+/* ================= REKAP FIX ================= */
 
 function tampilkanRekap(){
 let now=new Date();
@@ -837,6 +1161,7 @@ tbody.innerHTML="";
 
 anggotaOSIS.forEach(a=>{
 let hadir=0,izin=0,alpa=0;
+
 dataAbsensi.forEach(d=>{
 if(d.id===a.id && d.bulan===bulan && d.tahun===tahun){
 if(d.keterangan==="Hadir") hadir++;
@@ -844,62 +1169,231 @@ if(d.keterangan==="Izin") izin++;
 if(d.keterangan==="Alpa") alpa++;
 }
 });
+
+let total = hadir+izin+alpa;
+let persen = total>0 ? (hadir/total)*100 : 0;
+
+
 let r=tbody.insertRow();
 r.insertCell(0).innerHTML=a.id;
 r.insertCell(1).innerHTML=a.nama;
 r.insertCell(2).innerHTML=hadir;
 r.insertCell(3).innerHTML=izin;
 r.insertCell(4).innerHTML=alpa;
+r.insertCell(5).innerHTML=status;
 });
 }
 
+/* ================= PRINT ================= */
+
+function printData(){
+const overlay=document.getElementById("loadingOverlay");
+overlay.classList.add("active");
+
+setTimeout(()=>{
+const printContents=document.querySelector("#rekapPage .table-container").innerHTML;
+document.body.innerHTML=`
+<div style="padding:40px;">
+<h2 style="text-align:center; margin-bottom:20px;">
+Laporan Data Kehadiran
+</h2>
+${printContents}
+</div>`;
+window.print();
+location.reload();
+},1200);
+}
+
+/* ================= STATS ================= */
+
+function updateStats(){
+let now=new Date();
+let bulan=now.getMonth();
+let tahun=now.getFullYear();
+
+let hadir=0, izin=0, alpa=0;
+
+dataAbsensi.forEach(d=>{
+if(d.bulan===bulan && d.tahun===tahun){
+if(d.keterangan==="Hadir") hadir++;
+if(d.keterangan==="Izin") izin++;
+if(d.keterangan==="Alpa") alpa++;
+}
+});
+
+let total=hadir+izin+alpa;
+let persen= total>0 ? Math.round((hadir/total)*100) : 0;
+
+document.getElementById("totalHadir").innerText=hadir;
+document.getElementById("totalIzin").innerText=izin;
+document.getElementById("totalAlpa").innerText=alpa;
+document.getElementById("persenHadir").innerText=persen+"%";
+}
+
+/* ================= TOAST ================= */
+
+function showToast(){
+let toast=document.getElementById("toastNotif");
+toast.classList.add("show");
+setTimeout(()=>{toast.classList.remove("show");},2000);
+}
+
+/* ================= NAVIGATION ================= */
+
+function showPage(pageId){
+
+    document.getElementById("kehadiran").style.display="none";
+    document.getElementById("rekapPage").style.display="none";
+    document.getElementById("kegiatanFullPage").style.display="none";
+
+    document.getElementById(pageId).style.display="block";
+
+    window.scrollTo({top:0,behavior:"smooth"});
+}
+
+
+/* ================= INIT ================= */
+
 tampilkanAbsensi();
 tampilkanRekap();
+updateStats();
 
-/* Efek cahaya mengikuti mouse */
-const loginArea = document.querySelector(".login-page");
+/* ================= ABSENSI KEGIATAN MANUAL ================= */
 
-loginArea.addEventListener("mousemove", (e) => {
-    loginArea.style.setProperty('--x', e.clientX + 'px');
-    loginArea.style.setProperty('--y', e.clientY + 'px');
+let dataKegiatan = JSON.parse(localStorage.getItem("dataKegiatan")) || [];
+let anggotaSelectKegiatan = document.getElementById("anggotaSelectKegiatan");
+
+anggotaOSIS.forEach(a=>{
+    let o=document.createElement("option");
+    o.value=a.id;
+    o.textContent=a.id+" - "+a.nama;
+    anggotaSelectKegiatan.appendChild(o);
 });
 
-loginPage.addEventListener("mousemove", function(e){
-    const x = e.clientX;
-    const y = e.clientY;
-    loginPage.style.setProperty('--x', x + 'px');
-    loginPage.style.setProperty('--y', y + 'px');
-});
+function simpanAbsensiKegiatan(){
+    let id=parseInt(anggotaSelectKegiatan.value);
+    let kegiatan=document.getElementById("namaKegiatan").value;
+    let today=new Date().toISOString().split("T")[0];
 
-document.addEventListener("mousemove", function(e){
-    const before = document.querySelector(".login-page::before");
-});
-
-function togglePassword(){
-    const passInput = document.getElementById("password");
-    const eyeIcon = document.getElementById("eyeIcon");
-
-    if(passInput.type === "password"){
-        passInput.type = "text";
-        eyeIcon.innerHTML = `
-            <path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
-            <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2"/>
-        `;
-    } else {
-        passInput.type = "password";
-        eyeIcon.innerHTML = `
-            <path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
-        `;
+    if(!kegiatan){
+        alert("Isi nama kegiatan!");
+        return;
     }
 
-    eyeIcon.classList.add("fade-anim");
-    setTimeout(() => {
-        eyeIcon.classList.remove("fade-anim");
-    }, 250);
+    let anggota=anggotaOSIS.find(a=>a.id===id);
+
+    dataKegiatan.push({
+        id:id,
+        nama:anggota.nama,
+        kegiatan:kegiatan,
+        tanggal:today
+    });
+
+    localStorage.setItem("dataKegiatan",JSON.stringify(dataKegiatan));
+
+    tampilkanKegiatan();
+
+    // 🔥 AUTO PINDAH KE ANGGOTA BERIKUTNYA
+    if(anggotaSelectKegiatan.selectedIndex < anggotaSelectKegiatan.options.length - 1){
+        anggotaSelectKegiatan.selectedIndex++;
+    }
+
+    alert("Absensi kegiatan berhasil disimpan!");
+}
+
+function tampilkanKegiatan(){
+    let tbody=document.getElementById("tabelKegiatan");
+    tbody.innerHTML="";
+
+    dataKegiatan.forEach((d,i)=>{
+        let r=tbody.insertRow();
+        r.insertCell(0).innerHTML=d.id;
+        r.insertCell(1).innerHTML=d.nama;
+        r.insertCell(2).innerHTML=d.kegiatan;
+        r.insertCell(3).innerHTML=d.tanggal;
+
+        // 🔥 Kolom kosong untuk TTD manual
+        r.insertCell(4).innerHTML="<div style='height:40px;border-bottom:1px solid #000;'></div>";
+
+        r.insertCell(5).innerHTML=
+        `<button class="delete-btn" onclick="hapusKegiatan(${i})">Hapus</button>`;
+    });
+}
+
+function hapusSemuaKegiatan(){
+
+    if(confirm("Yakin ingin menghapus semua data kegiatan ini?")){
+
+        dataKegiatan = [];
+        localStorage.removeItem("dataKegiatan");
+
+        document.getElementById("namaKegiatan").value = "";
+        anggotaSelectKegiatan.selectedIndex = 0;
+
+        tampilkanKegiatan();
+
+        alert("Semua data kegiatan berhasil dihapus.");
+    }
+}
+
+
+tampilkanKegiatan();
+function printKegiatan(){
+
+    const overlay = document.getElementById("loadingOverlay");
+    overlay.classList.add("active");
+
+    setTimeout(()=>{
+
+        const rows = dataKegiatan.map(d=>`
+            <tr>
+                <td>${d.id}</td>
+                <td>${d.nama}</td>
+                <td>${d.kegiatan}</td>
+                <td>${d.tanggal}</td>
+                <td style="height:40px;border-bottom:1px solid #000;"></td>
+            </tr>
+        `).join("");
+
+        const printContent = `
+            <div style="padding:40px;">
+                <h2 style="text-align:center; margin-bottom:20px;">
+                    Laporan Absensi Kegiatan
+                </h2>
+                <table border="1" cellspacing="0" cellpadding="8" width="100%" style="border-collapse:collapse; text-align:center;">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nama</th>
+                            <th>Kegiatan</th>
+                            <th>Tanggal</th>
+                            <th>TTD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${rows}
+                    </tbody>
+                </table>
+            </div>
+        `;
+
+        document.body.innerHTML = printContent;
+
+        window.print();
+        location.reload();
+
+    },1000);
 }
 
 
 </script>
+
+<div id="loadingOverlay">
+    <div class="loader-box">
+        <div class="spinner"></div>
+        <p>Menyiapkan Data...</p>
+    </div>
+</div>
 
 </body>
 </html>
